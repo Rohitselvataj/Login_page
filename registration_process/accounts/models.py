@@ -1,10 +1,26 @@
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from django.contrib.auth.models import User
 
-class Post(models.Model):
+class CustomUser(AbstractUser):
+    is_admin = models.BooleanField(default=False)
+    is_user = models.BooleanField(default=False)
+
+    groups = models.ManyToManyField(
+        Group,
+        related_name='customuser_set',  # Avoid conflict with the default User model
+        blank=True,
+        help_text="The groups this user belongs to.",
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='customuser_permissions',  # Avoid conflict with the default User model
+        blank=True,
+        help_text="Specific permissions for this user.",
+    )
+
+class AdminUpdate(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

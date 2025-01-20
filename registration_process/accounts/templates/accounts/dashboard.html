@@ -1,0 +1,8 @@
+<h1>Dashboard</h1>
+<h2>Updates:</h2>
+<ul>
+    {% for update in updates %}
+        <li><strong>{{ update.title }}</strong>: {{ update.description }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'admin_update' %}">Add Update (Admin Only)</a>
