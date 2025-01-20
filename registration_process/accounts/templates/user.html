@@ -1,0 +1,10 @@
+<h1>Posts</h1>
+<ul>
+    {% for post in posts %}
+    <li>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <small>Created by: {{ post.created_by.username }} on {{ post.created_at }}</small>
+    </li>
+    {% endfor %}
+</ul>
